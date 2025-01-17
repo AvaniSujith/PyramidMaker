@@ -1,0 +1,460 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    background-color: #f2c94c;
+}
+
+html{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+}
+
+.screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.screen.up{
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.circle{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin: 0 5px;
+}
+
+.controls{
+    margin-bottom: 20px;
+}
+
+.input-group{
+    margin: 10px 0;
+}
+
+label{
+    margin-right: 10px;
+}
+
+.button-group{
+    margin-top: 10px;
+}
+
+button{
+    margin: 0 5px;
+    padding: 5px 15px;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+main{
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-btn,
+#setting-btn{
+    font-size: 1.5rem;
+    padding: 1rem;
+    color: #ffffff;
+}
+
+#user-btn:hover,
+#setting-btn:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.head{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: slideIn 0.5s ease-out;
+}
+
+.head h1{
+    font-size: 2.5rem;
+    color: #000;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    margin-bottom: 25px;
+}
+
+button{
+    border: none;
+    /* background-color: none; */
+    border: 2px solid transparent;
+    padding: .75rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000;
+    min-width: fit-content;
+    cursor: pointer;
+    background-color: #ffffff;
+
+}
+
+button:hover{
+    background-color: #f2c94c;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+button:focus{
+    transform: scale(1.1);
+}
+
+.input-innerContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-innerContainer label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+#input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+    color: #000;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px 10px;
+    /* text-align: left; */
+}
+.header-block{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #000;
+}
+
+.header-block h2{
+    margin: 0;
+}
+
+footer{
+    /* width: 100%;
+    height: 100%; */
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+
+label {
+    width: 120px;
+    margin-right: 10px;
+}
+
+input[type="number"],
+input[type="color"] {
+    padding: 6px;
+    /* border: none; */
+    border: 2px solid #dddddd;
+    border-radius:5px;
+
+}
+
+#pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FEF9F2;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    overflow: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.water-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.water-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+    mix-blend-mode: soft-light;
+}
+
+.water-wave {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: -50%;
+    left: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3) 0%,
+        currentColor 100%
+    );
+    animation: wave 2s linear infinite;
+    transform-origin: center bottom;
+}
+
+.water-surface {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    opacity: 0.7;
+    animation: surface-wave 1.5s ease-in-out infinite;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.4)
+    );
+}
+
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+#modal-overlay #modal-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #dddddd;
+    padding: 48px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#modal-overlay span {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.error-message{
+    color: #000;
+    margin-top: 450px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+
+@keyframes slideIn {
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(-25%) rotate(2deg);
+    }
+    100% {
+        transform: translateX(-50%) rotate(0deg);
+    }
+}
+
+@keyframes surface-wave {
+    0%, 100% {
+        transform: scaleX(0.9) translateY(0);
+    }
+    50% {
+        transform: scaleX(1.1) translateY(1px);
+    }
+}
+
+.circle .water-fill[style*="height: 100"] {
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        filter: brightness(1);
+    }
+    to {
+        filter: brightness(1.2);
+    }
+}
+
+@media screen and (min-width:425px){
+    label{
+        width: 150px;
+    }
+
+    .circle{
+        height: 15px;
+        width: 15px;
+    }
+
+    #user-btn, #setting-btn{
+        font-size: 1.75rem;
+    }
+}
+
+
+@media screen and (min-width:768px){
+    .head h1{
+        font-size: 2.75rem;
+        margin-bottom: 30px;
+    }
+
+    .header-block h2{
+        font-size: 2.5rem;
+    }
+
+    .input-innerContainer label{
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    label{
+        width: 200px;
+    }
+
+    .circle{
+        height: 18px;
+        width: 18px;
+    }
+
+    #user-btn, #setting-btn{
+        font-size: 2rem;
+    }
+}
+
+
+@media screen and (min-width:1024px){
+    .head h1{
+        font-size: 3rem;
+        margin-bottom: 30px;
+    }
+
+    .header-block h2{
+        font-size: 2.75rem;
+    }
+
+    .input-innerContainer label{
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    label{
+        width: 250px;
+    }
+
+    #input-container{
+        gap: 1.5rem;
+        margin: 40px;
+        padding: 30px;
+    }
+
+    .circle{
+        height: 20px;
+        width: 20px;
+    }
+
+    #user-btn, #setting-btn{
+        font-size: 2rem;
+    }
+}
