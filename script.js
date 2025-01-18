@@ -221,18 +221,30 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
         if (isPaused) return;
 
         if(currentRowIndex < rows.length) {
-            const circles = rows[currentRowIndex].getElementsByClassName('circle');
-            for(let circle of circles) {
-                fillCircleWithWater(circle, color);
+            
+            if(currentRowIndex > 0) {
+                const previousRow = rows[currentRowIndex - 1];
+                const previousCircles = previousRow.getElementsByClassName('circle');
+                Array.from(previousCircles).forEach(circle => {
+                    clearCircleWater(circle);
+                });
             }
+
+            const circles = rows[currentRowIndex].getElementsByClassName('circle');
+            Array.from(circles).forEach(circle => {
+                fillCircleWithWater(circle, color);
+            });
+
             currentRowIndex++;
             let timeout = setTimeout(lightUpRow, delay);
             animationTimeouts.push(timeout);
         } else {
             
+            const lastRow = rows[rows.length - 1];
+            const lastCircles = lastRow.getElementsByClassName('circle');
+            
             const clearTimeout = setTimeout(() => {
-                const allCircles = document.getElementsByClassName('circle');
-                Array.from(allCircles).forEach(circle => {
+                Array.from(lastCircles).forEach(circle => {
                     clearCircleWater(circle);
                 });
                 
@@ -241,7 +253,7 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
                         currentRowIndex = 0;
                         lightUpRow();
                     }
-                }, 600); 
+                }, 600);
             }, delay);
             
             animationTimeouts.push(clearTimeout);
@@ -254,6 +266,7 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
 function clearCircleWater(circle) {
     const waterFill = circle.querySelector('.water-fill');
     if (waterFill) {
+        waterFill.style.transition ='height 0.5s ease-out'
         waterFill.style.height = '0%';
         setTimeout(() => {
             if (waterFill.parentNode === circle) {
