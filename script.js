@@ -241,7 +241,7 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
             });
 
             currentRowIndex++;
-            let timeout = setTimeout(lightUpRow, currentDelay); // Use currentDelay directly
+            let timeout = setTimeout(lightUpRow, currentDelay); 
             animationTimeouts.push(timeout);
         } else {
             const lastRow = rows[rows.length - 1];
@@ -258,7 +258,7 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
                         lightUpRow();
                     }
                 }, 600);
-            }, currentDelay); // Use currentDelay here as well
+            }, currentDelay); 
             
             animationTimeouts.push(clearTimeout);
         }
@@ -319,7 +319,7 @@ function createDelayController(initialDelay) {
     currentDelay = initialDelay;
     
     decreaseBtn.addEventListener('click', () => {
-        if (currentDelay > 300) {  // Minimum delay of 100ms
+        if (currentDelay > 300) {  
             currentDelay -= 100;
             delayValue.textContent = `${currentDelay}ms`;
             // updateAnimation(currentDelay);
@@ -328,7 +328,7 @@ function createDelayController(initialDelay) {
     });
     
     increaseBtn.addEventListener('click', () => {
-        if (currentDelay < 2000) {  // Maximum delay of 5000ms
+        if (currentDelay < 2000) {  
             currentDelay += 100;
             delayValue.textContent = `${currentDelay}ms`;
             // updateAnimation(currentDelay);
