@@ -46,6 +46,7 @@ const showInputBoxes = () => {
     const startButton = document.createElement('button');
     startButton.textContent = 'Start Animation';
     startButton.className = 'start-button';
+
     startButton.addEventListener('click', () => {
         const rows = parseInt(document.getElementById('rows').value);
         const color = document.getElementById('colorInput').value;
@@ -53,6 +54,11 @@ const showInputBoxes = () => {
 
         if (!rows || !color || !delay) {
             showErrorMessage('Missing information');
+            return;
+        }
+
+        if(isNaN(rows)|| rows < 0 || rows > 40){
+            showErrorMessage('Number of rows must be between 0 and 40');
             return;
         }
 
@@ -202,6 +208,7 @@ function validateColor(color) {
     temp.style.color = color;
     return temp.style.color !== '';
 }
+
 function animateRows(selectedColor, selectedDelay, startFromRow) {
     if (!isAnimating || isPaused) return;
 

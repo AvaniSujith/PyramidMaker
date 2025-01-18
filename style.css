@@ -223,6 +223,58 @@ input[type="color"] {
     overflow: auto;
 }
 
+/* Delay Controller Styles */
+.delay-controller {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.delay-controller button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.delay-controller button:hover {
+    background-color: #e0e0e0;
+}
+
+.delay-controller .delay-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.delay-controller .delay-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.delay-controller .delay-value {
+    font-size: 12px;
+    color: #666;
+}
+
 .row {
     display: flex;
     justify-content: center;
