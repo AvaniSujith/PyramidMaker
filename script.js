@@ -3,6 +3,7 @@ let isAnimating = false;
 let isPaused = false;
 let animationTimeouts = [];
 let currentRowIndex = 0;
+let currentDelay;
 
 
 const continueBtn = document.getElementById('continue-btn');
@@ -64,6 +65,12 @@ const showInputBoxes = () => {
 
         const mainSection = document.querySelector('main');
         mainSection.innerHTML = '';
+
+        currentDelay = delay;
+
+        const delayController = createDelayController(delay);
+        mainSection.appendChild(delayController);
+
         const pyramidContainer = document.createElement('div');
         pyramidContainer.id = 'pyramid';
         mainSection.appendChild(pyramidContainer);
@@ -75,7 +82,7 @@ const showInputBoxes = () => {
             if (isPaused) {
                 isPaused = false;
                 pauseButton.textContent = 'Pause';
-                animateRows(color, delay, currentRowIndex);
+                animateRows(color, currentDelay, currentRowIndex);
             } else {
                 isPaused = true;
                 pauseButton.textContent = 'Resume';
@@ -89,7 +96,7 @@ const showInputBoxes = () => {
         isAnimating = true;
         isPaused = false;
         currentRowIndex = 0;
-        animateRows(color, delay, 0);
+        animateRows(color, currentDelay, 0);
     });
 
     inputContainer.appendChild(rowsInput);
@@ -214,14 +221,12 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
 
     const rows = document.getElementsByClassName('row');
     const color = validateColor(selectedColor) ? selectedColor : 'red';
-    const delay = selectedDelay >= 100 ? selectedDelay : 100;
     currentRowIndex = startFromRow;
 
-    async function lightUpRow() {
+    function lightUpRow() {
         if (isPaused) return;
 
         if(currentRowIndex < rows.length) {
-            
             if(currentRowIndex > 0) {
                 const previousRow = rows[currentRowIndex - 1];
                 const previousCircles = previousRow.getElementsByClassName('circle');
@@ -236,10 +241,9 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
             });
 
             currentRowIndex++;
-            let timeout = setTimeout(lightUpRow, delay);
+            let timeout = setTimeout(lightUpRow, currentDelay); // Use currentDelay directly
             animationTimeouts.push(timeout);
         } else {
-            
             const lastRow = rows[rows.length - 1];
             const lastCircles = lastRow.getElementsByClassName('circle');
             
@@ -254,7 +258,7 @@ function animateRows(selectedColor, selectedDelay, startFromRow) {
                         lightUpRow();
                     }
                 }, 600);
-            }, delay);
+            }, currentDelay); // Use currentDelay here as well
             
             animationTimeouts.push(clearTimeout);
         }
@@ -281,6 +285,83 @@ function clearAllCircles() {
     Array.from(circles).forEach(circle => {
         clearCircleWater(circle);
     });
+}
+
+
+function createDelayController(initialDelay) {
+    const controller = document.createElement('div');
+    controller.className = 'delay-controller';
+    
+    const decreaseBtn = document.createElement('button');
+    decreaseBtn.innerHTML = '-';
+    
+    const delayInfo = document.createElement('div');
+    delayInfo.className = 'delay-info';
+    
+    const delayLabel = document.createElement('div');
+    delayLabel.className = 'delay-label';
+    delayLabel.textContent = 'Animation Delay';
+    
+    const delayValue = document.createElement('div');
+    delayValue.className = 'delay-value';
+    delayValue.textContent = `${initialDelay}ms`;
+    
+    const increaseBtn = document.createElement('button');
+    increaseBtn.innerHTML = '+';
+    
+    delayInfo.appendChild(delayLabel);
+    delayInfo.appendChild(delayValue);
+    
+    controller.appendChild(decreaseBtn);
+    controller.appendChild(delayInfo);
+    controller.appendChild(increaseBtn);
+    
+    currentDelay = initialDelay;
+    
+    decreaseBtn.addEventListener('click', () => {
+        if (currentDelay > 300) {  // Minimum delay of 100ms
+            currentDelay -= 100;
+            delayValue.textContent = `${currentDelay}ms`;
+            // updateAnimation(currentDelay);
+            stopRestartAnimation();
+        }
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+        if (currentDelay < 2000) {  // Maximum delay of 5000ms
+            currentDelay += 100;
+            delayValue.textContent = `${currentDelay}ms`;
+            // updateAnimation(currentDelay);
+            stopRestartAnimation()
+        }
+    });
+    
+    return controller;
+}
+
+function stopRestartAnimation() {
+    if (isAnimating) {
+
+        const color = document.getElementById('colorInput').value;
+        const currentState = {
+            row: currentRowIndex,
+            isPaused: isPaused
+        };
+
+        animationTimeouts.forEach(timeout => clearTimeout(timeout));
+        animationTimeouts = [];
+
+        // currentDelay = newDelay;
+
+        clearAllCircles()
+
+        if(!currentState.isPaused){
+            setTimeout(() => {
+                animateRows(color, currentDelay, currentState.row);
+
+            }, 500)
+        }
+    }
 }
 
 const showModal = (createContentCallback) => {
@@ -333,6 +414,7 @@ const createSettingsContent = (modalBox) => {
     // modalBox.appendChild(startNewButton);
     modalBox.appendChild(reloadButton);
 };
+
 
 const createProfileContent = (modalBox) => {
     const loginButton = document.createElement('button');
